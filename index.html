@@ -15,14 +15,10 @@
   <script src="js/services/catalog-service.js"></script>
   <script src="js/controllers/catalog-ctrl.js"></script>
 </head>
-<body style="background-color:#000;">
-  <div class="container" ng-controller="catalogCtrl">
+<body>
+  <div class="container" ng-controller="CatalogCtrl">
     <div class="row">
-      <div class="col-one-fifth"><a href="#" class="thumbnail"><img src="" alt="" class="img-rounded"></a></div>
-      <div class="col-one-fifth"><a href="#" class="thumbnail"><img src="" alt="" class="img-rounded"></a></div>
-      <div class="col-one-fifth"><a href="#" class="thumbnail"><img src="" alt="" class="img-rounded"></a></div>
-      <div class="col-one-fifth"><a href="#" class="thumbnail"><img src="" alt="" class="img-rounded"></a></div>
-      <div class="col-one-fifth"><a href="#" class="thumbnail"><img src="" alt="" class="img-rounded"></a></div>
+      <div class="col-one-fifth" ng-repeat="asset in assets | limitTo:20"><a href="#" class="thumbnail"><img ng-src="{{asset.Item.thumbImage}}" alt="" class="img-rounded"></a></div>
     </div>
   </div>
 </body>

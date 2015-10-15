@@ -1,4 +1,4 @@
-catalogApp.controller('catalogCtrl', ['$scope', 'assetService', function($scope, assetService) {
+catalogApp.controller('CatalogCtrl', ['$scope', 'assetService', function($scope, assetService) {
 
   $scope.assets = [];
   $scope.totalHits = 0;
@@ -8,8 +8,17 @@ catalogApp.controller('catalogCtrl', ['$scope', 'assetService', function($scope,
       data: data
     });
     promise.then(function(response) {
-      $scope.assets = response.Data;
-      $scope.totalHits = response.TotalHits;
+      var originalAssets = response.data.Data;
+      originalAssets.forEach(function(asset, index) {
+        asset.Item.Images.forEach(function(image, index) {
+          if (image.Type === 1) {
+            /* Add logic to massage data to pluck out right image size for displaying thumbs */
+            asset.Item.thumbImage = image.ImageId;
+          }
+        });
+      });
+      $scope.assets = originalAssets;
+      $scope.totalHits = response.data.TotalHits;
     }, function(reason) {
       console.log(reason);
     });
