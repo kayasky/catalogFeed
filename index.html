@@ -19,7 +19,7 @@
 <body style="background-color: #ddd;">
   <div class="container" ng-controller="CatalogCtrl">
     <div class="row">
-      <div class="col-one-fifth" ng-repeat="asset in assets | limitTo:20">
+      <div class="col-one-fifth" ng-repeat="asset in assets | limitTo : 20 : pageOffset">
         <asset-thumb asset="asset"></asset-thumb>
       </div>
     </div>
@@ -30,11 +30,8 @@
             <span aria-hidden="true">&laquo;</span>
           </a>
         </li>
-        <li><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
+        <li ng-repeat="pageNumber in pageNumbers">
+          <a href="#" ng-click="gotoPage(pageNumber);">{{ pageNumber }}</a>
         <li>
           <a href="#" aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
