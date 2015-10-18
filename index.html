@@ -16,29 +16,47 @@
   <script src="js/controllers/catalog-ctrl.js"></script>
   <script src="js/directives/thumbnail/thumbnail.js"></script>
 </head>
-<body style="background-color: #ddd;">
+<body>
   <div class="container" ng-controller="CatalogCtrl">
+
+    <div class="row col-sm-12 ui-dropdown text-center white-txt">
+      <label for="sortBy">Sort By: </label>
+      <select
+        ng-options="item.value as item.label for item in sortOptions"
+        ng-model="assetSort"
+        ng-change="sortAssets(assetSort);">
+        <option value="">- Select Sort -</option>
+      </select>
+
+      <p>{{ currentPageStats() }}</p>
+    </div>
+
     <div class="row">
-      <div class="col-one-fifth" ng-repeat="asset in assets | limitTo : 20 : pageOffset">
+      <!-- Asset Thumbs -->
+      <div class="col-one-fifth" ng-repeat="asset in assets | orderBy: 'asset.Item.ReleaseYear' | limitTo : 20 : pageOffset">
         <asset-thumb asset="asset"></asset-thumb>
       </div>
     </div>
-    <nav class="text-center">
-      <ul class="pagination">
-        <li>
-          <a href="#" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-        <li ng-repeat="pageNumber in pageNumbers">
-          <a href="#" ng-click="gotoPage(pageNumber);">{{ pageNumber }}</a>
-        <li>
-          <a href="#" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
+
+    <div class="row">
+      <nav class="text-center">
+        <!-- Pagination -->
+        <ul class="pagination">
+          <li>
+            <a href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li ng-repeat="pageNumber in pageNumbers">
+            <a href="#" ng-click="gotoPage(pageNumber);">{{ pageNumber }}</a>
+          <li>
+            <a href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </div>
 </body>
 </html>
