@@ -14,12 +14,34 @@
   <script src="js/mock-api.js"></script>
   <script src="js/services/catalog-service.js"></script>
   <script src="js/controllers/catalog-ctrl.js"></script>
+  <script src="js/directives/thumbnail/thumbnail.js"></script>
 </head>
-<body>
+<body style="background-color: #ddd;">
   <div class="container" ng-controller="CatalogCtrl">
     <div class="row">
-      <div class="col-one-fifth" ng-repeat="asset in assets | limitTo:20"><a href="#" class="thumbnail"><img ng-src="{{asset.Item.thumbImage}}" alt="" class="img-rounded"></a></div>
+      <div class="col-one-fifth" ng-repeat="asset in assets | limitTo:20">
+        <asset-thumb asset="asset"></asset-thumb>
+      </div>
     </div>
+    <nav class="text-center">
+      <ul class="pagination">
+        <li>
+          <a href="#" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li>
+          <a href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
   </div>
 </body>
 </html>
