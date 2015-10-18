@@ -1,12 +1,39 @@
-catalogApp.controller('CatalogCtrl', ['$scope', 'assetService', function($scope, assetService) {
+catalogApp.controller('CatalogCtrl', ['$scope', 'assetService', '$filter', function($scope, assetService, $filter) {
+
+  var orderBy = $filter('orderBy');
 
   $scope.assets = [];
-  $scope.currentPage = 0;
   $scope.totalPages = 1;
   $scope.pageNumbers = [];
   $scope.pageSize = 20;
   $scope.totalHits = 0;
   $scope.pageOffset = 0;
+  $scope.assetSort = "Title";
+
+  $scope.sortOptions = [
+    {
+      label: "Title",
+      value: "Item.Title"
+    },
+    {
+      label: "Release Year",
+      value: "Item.ReleaseYear"
+    },
+    {
+      label: "Duration",
+      value: "Item.RunTimeSec"
+    }
+  ];
+
+  $scope.sortAssets = function(predicate) {
+    $scope.assets = orderBy($scope.assets, predicate, false);
+  };
+
+  $scope.currentPageStats = function() {
+    var pageCount = ($scope.pageOffset + $scope.pageSize) < $scope.totalHits ?  ($scope.pageOffset + $scope.pageSize) : $scope.totalHits;
+    var text = "Showing " + ($scope.pageOffset + 1) + " to " + pageCount + " of " + $scope.totalHits;
+    return text;
+  }
 
   var initPagination = function(totalPages) {
     var pageNumbers = [];
